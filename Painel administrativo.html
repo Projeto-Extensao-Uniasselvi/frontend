@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ECA Para Você - Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen font-sans">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200 p-4 flex flex-col">
+      <h2 class="text-xl font-semibold mb-8">ECA para você</h2>
+      <nav class="flex-1">
+        <ul class="space-y-4 text-gray-700">
+          <li><a href="#" class="hover:text-blue-600">Home</a></li>
+          <li><a href="#" class="hover:text-blue-600">Usuários</a></li>
+          <li><a href="#" class="hover:text-blue-600">Publicações</a></li>
+          <li><a href="#" class="hover:text-blue-600">Membros</a></li>
+          <li><a href="#" class="hover:text-blue-600">Configurações</a></li>
+        </ul>
+
+        <div class="mt-10">
+          <h3 class="text-sm text-gray-400 uppercase mb-2">Posts</h3>
+          <ul class="space-y-2 text-gray-700">
+            <li><a href="#" class="text-purple-600 font-medium">Posts</a></li>
+            <li><a href="#" class="hover:text-blue-600">Mídia</a></li>
+            <li><a href="#" class="hover:text-blue-600">Comentários</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="flex-1 p-6 overflow-auto">
+      <!-- Top bar -->
+      <div class="flex justify-between items-center mb-8">
+        <div class="relative w-full max-w-lg">
+          <input type="text" placeholder="Buscar" class="w-full px-4 py-2 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <svg class="absolute right-3 top-2.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"/></svg>
+        </div>
+        <div class="flex space-x-4">
+          <button><svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button><svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405M20 12V8a4 4 0 00-4-4h-1.586A1.5 1.5 0 0012 4.5v0A1.5 1.5 0 0010.586 4H9a4 4 0 00-4 4v4m6 4h.01" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+
+      <!-- Conteúdo -->
+      <h1 class="text-3xl font-bold mb-6">ECA Para Você</h1>
+
+      <div class="flex space-x-4 mb-6">
+        <select class="px-3 py-2 border rounded-md focus:ring-blue-400">
+          <option>Filtrar</option>
+          <option>Estatísticas</option>
+        </select>
+        <select class="px-3 py-2 border rounded-md focus:ring-blue-400">
+          <option>Hoje</option>
+          <option>Essa semana</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Estatísticas -->
+        <div>
+          <h3 class="font-medium text-sm text-purple-600 mb-2">Estatísticas</h3>
+          <div class="border-t-2 border-purple-600 mb-2"></div>
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfQBX_VXN3LLT_AwfxFmAIx2gAbu9Auv2ENnIPNuTgmEJ9ukqIlVKn8ulH7yk7Smw26F6Z2tbJfJFBxFBhUr5A21iM0FufEYbzEInhSbha7YUvj251bhw5pgPwKZyUOXUdxR3oguxbNO0I/s1600/Figure_1.png" class="rounded-lg shadow-md">
+        </div>
+        <!-- Mensagens -->
+        <div>
+          <h3 class="font-medium text-sm text-yellow-600 mb-2">Mensagens essa semana</h3>
+          <div class="border-t-2 border-yellow-500 mb-2"></div>
+          <img src="https://lh6.googleusercontent.com/UCBf_VFVBLaFip879NWf2OM_TcajKG9JQE5azVoAzfolB0DGgqm4YiThR97R87z9_QGeQ9Ziobe2BmP1xEd6B7UtaZLuoAUkwqxFZaDyVOD9jgUncp_Dy4vZqjfmH6vxJ93uRTAa" class="rounded-lg shadow-md">
+        </div>
+        <!-- Comentários -->
+        <div>
+          <h3 class="font-medium text-sm text-green-600 mb-2">Comentários essa semana</h3>
+          <div class="border-t-2 border-green-500 mb-2"></div>
+          <img src="https://doc.arcgis.com/pt-br/insights/latest/create/GUID-0E216C87-8289-4C24-93C0-434F3A29FD6C-web.png" class="rounded-lg shadow-md">
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
