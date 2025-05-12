@@ -1,23 +1,23 @@
 class Login {
-  urlBase = "https://publicacoes-api.onrender.com/api/v1";
+  baseUrl = "https://publicacoes-api.onrender.com/api/v1";
   email = document.getElementById("email");
-  senha = document.getElementById("password");
-  bataoLogin = document.getElementById("loginButton");
+  password = document.getElementById("password");
+  loginBtn = document.getElementById("loginButton");
 
-  constructor(){
-    this.bataoLogin.addEventListener(
-      "click", () =>
+  constructor() {
+    this.loginBtn.addEventListener(
+      "click", () => 
         this.login()
     );
   }
 
   async login() {
     const email = this.email.value;
-    const senha = this.senha.value;
+    const password = this.password.value;
     axios
-      .post(`${this.urlBase}/login`, {
+      .post(`${this.baseUrl}/login`, {
         email: email,
-        senha: senha,
+        senha: password,
       })
       .then((response) => {
         const token = response.data.token_de_acesso;
@@ -31,4 +31,4 @@ class Login {
   }
 }
 
-new Login;
+new Login();
