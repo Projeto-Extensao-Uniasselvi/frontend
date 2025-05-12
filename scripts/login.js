@@ -2,10 +2,10 @@ class Login {
   urlBase = "https://publicacoes-api.onrender.com/api/v1";
   email = document.getElementById("email");
   senha = document.getElementById("password");
-  btnLogin = document.getElementById("loginButton");
+  bataoLogin = document.getElementById("loginButton");
 
   constructor(){
-    this.btnLogin.addEventListener(
+    this.bataoLogin.addEventListener(
       "click", () =>
         this.login()
     );
