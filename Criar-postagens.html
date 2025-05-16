@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novo Post</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+ 
+</head>
+<body class="flex bg-gray-100 min-h-screen">
+  <!-- Barra Lateral -->
+  <aside class="w-64 bg-white p-6 border-r">
+    <h1 class="text-xl font-bold mb-4">ECA para você</h1>
+    <nav class="flex flex-col space-y-2">
+      <a href="#" class="text-gray-700 hover:text-purple-600">Home</a>
+      <a href="#" class="text-gray-700 hover:text-purple-600">Usuários</a>
+      <a href="#" class="text-gray-700 hover:text-purple-600">Publicações</a>
+      <a href="#" class="text-gray-700 hover:text-purple-600">Membros</a>
+      <a href="#" class="text-gray-700 hover:text-purple-600">Configurações</a>
+      <div class="mt-4">
+        <p class="text-sm font-semibold text-gray-500 uppercase">Posts</p>
+        <a href="#" class="text-purple-600">Posts</a> <br>
+        <a href="#" class="text-purple-600">Novo Post</a> <br>
+        <a href="#" class="text-gray-700 hover:text-purple-600">Mídia</a> <br>
+        <a href="#" class="text-gray-700 hover:text-purple-600">Comentários</a>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo Principal -->
+  <main class="flex-1 p-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-semibold mb-4">Adicionar nova postagem</h2>
+
+      <!-- Campo de Título -->
+      <input type="text" placeholder="Título da postagem" class="w-full p-2 border border-gray-300 rounded mb-4">
+
+      <!-- Botões de formatação -->
+      <div class="flex items-center gap-2 mb-4">
+        <select class="border border-gray-300 rounded p-1">
+          <option>Parágrafo</option>
+          <option>Título</option>
+        </select>
+        <button class="btn-format px-2 py-1 border rounded" data-command="bold"><strong>B</strong></button>
+        <button class="btn-format px-2 py-1 border rounded italic" data-command="italic">I</button>
+        <button class="btn-format px-2 py-1 border rounded underline" data-command="underline">U</button>
+        <label class="px-2 py-1 border rounded cursor-pointer bg-gray-100">
+          📎 Adicionar mídia
+          <input type="file" id="upload-image" accept="image/*" class="hidden">
+        </label>
+      </div>
+
+      <!-- Campo de postagem -->
+      <div id="editor" contenteditable="true" class="border border-gray-300 rounded p-4 min-h-[200px] mb-4"></div>
+
+      <!-- Botão de Postar -->
+      <button id="postar" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded" >Postar</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+ <script src="criar-posts-scripts.js"></script>
+</html>
