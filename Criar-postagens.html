@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Novo Post</title>
   <script src="https://cdn.tailwindcss.com"></script>
- 
+  <link rel="icon" href="data:,">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body class="flex bg-gray-100 min-h-screen">
   <!-- Barra Lateral -->
@@ -29,11 +30,11 @@
 
   <!-- Conteúdo Principal -->
   <main class="flex-1 p-8">
-    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <form id="postForm" class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
       <h2 class="text-2xl font-semibold mb-4">Adicionar nova postagem</h2>
 
       <!-- Campo de Título -->
-      <input type="text" placeholder="Título da postagem" class="w-full p-2 border border-gray-300 rounded mb-4">
+      <input id="titulo" type="text" placeholder="Título da postagem" class="w-full p-2 border border-gray-300 rounded mb-4">
 
       <!-- Botões de formatação -->
       <div class="flex items-center gap-2 mb-4">
@@ -51,14 +52,16 @@
       </div>
 
       <!-- Campo de postagem -->
-      <div id="editor" contenteditable="true" class="border border-gray-300 rounded p-4 min-h-[200px] mb-4"></div>
+      <div id="conteudo" contenteditable="true" class="border border-gray-300 rounded p-4 min-h-[200px] mb-4"></div>
 
       <!-- Botão de Postar -->
-      <button id="postar" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded" >Postar</button>
+      <button id = "postar" type="submit" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded">Postar</button>
     </div>
   </main>
-
-  <script src="script.js"></script>
+</form>
 </body>
- <script src="criar-posts-scripts.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+ <script type="module" src="./scripts/criar-postagens.js"></script>
+ <script type = "module" src="./scripts/criar-postagens.js"></script>
 </html>

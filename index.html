@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ECA para Você</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:,">
 </head>
 <body class="bg-gray-100">
 
@@ -12,17 +13,12 @@
   <header class="bg-white text-gray-900 py-4 px-8 shadow-md">
     <div class="flex justify-between items-center">
       <h1 class="text-xl font-bold">ECA</h1>
-      
-      <!-- Botão hamburguer (mobile only) -->
       <button id="menu-toggle" class="md:hidden">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-          viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"></path>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
 
-      <!-- Menu padrão (desktop) -->
       <nav class="hidden md:flex">
         <ul class="flex space-x-6">
           <li><a href="#" class="hover:underline">Home</a></li>
@@ -35,7 +31,6 @@
       </nav>
     </div>
 
-    <!-- Menu Mobile (inicialmente oculto) -->
     <nav id="mobile-menu" class="md:hidden hidden flex-col space-y-2 mt-4 transition-all duration-300 transform">
       <a href="#" class="block hover:underline">Home</a>
       <a href="#" class="block hover:underline">Artigos</a>
@@ -44,31 +39,9 @@
     </nav>
   </header>
 
-  <!-- Artigo -->
-  <section id="about" class="container mx-auto my-8 p-4 bg-white rounded shadow-lg max-w-3xl">
-    <h1 class="text-3xl font-bold mb-4">Artigo sobre algo</h1>
-    <p class="text-gray-600 mb-4">Subtítulo do artigo ou um pequeno resumo.</p>
-
-    <div class="w-full flex justify-center mb-6">
-      <img src="https://th.bing.com/th/id/OIP.tFRNUwV8IrVJ44HFZZ98hgHaE7?rs=1&pid=ImgDetMain"
-        alt="Crianças" class="w-full md:w-2/3 h-auto rounded-lg" />
-    </div>
-
-    <p class="text-justify mb-4">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac felis magna. Integer auctor nunc et nulla bibendum, et aliquam nulla laoreet. Nunc tincidunt, justo vitae suscipit vestibulum, tortor sapien venenatis eros, vel facilisis est augue non lectus.
-    </p>
-    <p class="text-justify mb-4">
-      Suspendisse id mi nec augue facilisis convallis. Fusce eget felis purus. Nulla facilisi. Fusce accumsan gravida nulla in blandit. Donec efficitur ante sit amet dolor malesuada, nec elementum felis consequat.
-    </p>
-
-    <div class="w-full flex justify-center my-6">
-      <img src="https://th.bing.com/th/id/OIP.tFRNUwV8IrVJ44HFZZ98hgHaE7?rs=1&pid=ImgDetMain"
-        alt="Crianças felizes" class="w-full md:w-2/3 h-auto rounded-lg" />
-    </div>
-
-    <p class="text-justify mb-4">
-      Curabitur tincidunt tristique lorem et gravida. Morbi nec libero lorem. Cras vitae lectus a libero tincidunt facilisis id et enim. Ut auctor lorem at nisi congue, sed euismod lorem tincidunt.
-    </p>
+  <!-- Postagens -->
+  <section id="lista-postagens" class="container mx-auto my-8 p-4 bg-white rounded shadow-lg max-w-3xl">
+    <p class="text-gray-600">Carregando postagens...</p>
   </section>
 
   <!-- Ler mais artigos -->
@@ -98,7 +71,9 @@
     </div>
   </footer>
 
-  <!-- Script do menu -->
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./scripts/postagens-no-blog.js"></script>
   <script>
     document.getElementById('menu-toggle').addEventListener('click', function () {
       const menu = document.getElementById('mobile-menu');
