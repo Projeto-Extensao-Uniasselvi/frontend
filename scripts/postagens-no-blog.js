@@ -1,9 +1,8 @@
-
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("lista-postagens");
 
   try {
-    const response = await axios.get("http://localhost:3000/api/v1/publicacoes");
+    const response = await axios.get("https://publicacoes-api.onrender.com/api/v1/publicacoes");
     const postagens = response.data;
 
     if (!Array.isArray(postagens) || postagens.length === 0) {
