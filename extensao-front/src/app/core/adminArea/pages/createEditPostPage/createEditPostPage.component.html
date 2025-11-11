@@ -1,0 +1,201 @@
+<form
+  *ngIf="form"
+  [formGroup]="form"
+  (ngSubmit)="uploadPost()"
+  class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto"
+>
+  <h2 class="text-2xl font-semibold mb-4">
+    {{ isEditMode ? 'Editar postagem' : 'Adicionar nova postagem' }}
+  </h2>
+
+  <!-- Título -->
+  <div>
+    <input
+      formControlName="titulo"
+      id="titulo"
+      type="text"
+      placeholder="Título da postagem"
+      class="w-full p-2 border rounded"
+      [ngClass]="{'border-red-500': getControl('titulo')?.invalid && getControl('titulo')?.touched}"
+    >
+    <div *ngIf="getControl('titulo')?.invalid && getControl('titulo')?.touched" class="text-red-500 text-sm mt-1">
+      <p *ngIf="getControl('titulo')?.errors?.['required']">Título é obrigatório.</p>
+      <p *ngIf="getControl('titulo')?.errors?.['minlength']">Título deve ter no mínimo 6 caracteres.</p>
+      <p *ngIf="getControl('titulo')?.errors?.['maxlength']">Título não pode exceder 100 caracteres.</p>
+    </div>
+  </div>
+
+  <!-- Subtítulo -->
+  <div>
+    <input
+      formControlName="subtitulo"
+      id="subtitulo"
+      type="text"
+      placeholder="Subtítulo da postagem"
+      class="w-full p-2 border rounded"
+      [ngClass]="{'border-red-500': getControl('subtitulo')?.invalid && getControl('subtitulo')?.touched}"
+    >
+     <div *ngIf="getControl('subtitulo')?.invalid && getControl('subtitulo')?.touched" class="text-red-500 text-sm mt-1">
+      <p *ngIf="getControl('subtitulo')?.errors?.['required']">Subtítulo é obrigatório.</p>
+      <p *ngIf="getControl('subtitulo')?.errors?.['minlength']">Subtítulo deve ter no mínimo 6 caracteres.</p>
+      <p *ngIf="getControl('subtitulo')?.errors?.['maxlength']">Subtítulo não pode exceder 100 caracteres.</p>
+    </div>
+  </div>
+
+  <!-- Imagem de capa -->
+  <div>
+    <label class="block mb-1 text-sm text-gray-600">
+      Imagem de capa <span *ngIf="!isEditMode" class="text-red-500">*</span>
+    </label>
+    <input
+        id="capa"
+        type="file"
+        (change)="onFileChange($event)"
+        accept="image/*"
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': getControl('capa')?.invalid && getControl('capa')?.touched}"
+    >
+    <div *ngIf="getControl('capa')?.invalid && getControl('capa')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="getControl('capa')?.errors?.['required']">A imagem de capa é obrigatória.</p>
+    </div>
+  </div>
+
+
+  <!-- Autor -->
+  <div class="relative">
+    <label class="block mb-1 text-sm text-gray-600">Autor <span class="text-red-500">*</span></label>
+    <input
+      type="text"
+      class="w-full p-2 border rounded"
+      placeholder="Pesquise o autor"
+      [value]="selectedAutorName"
+      (input)="onSearch($event)"
+      [disabled]="isEditMode"
+      [ngClass]="{'border-red-500': getControl('autor_id')?.invalid && getControl('autor_id')?.touched, 'bg-gray-200': isEditMode}"
+    />
+     <div *ngIf="getControl('autor_id')?.invalid && getControl('autor_id')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="getControl('autor_id')?.errors?.['required']">A seleção de um autor é obrigatória.</p>
+    </div>
+
+    <!-- Dropdown de sugestões -->
+    <ul
+      *ngIf="showSuggestions && autoresFiltrados.length"
+      class="absolute z-10 w-full bg-white border border-gray-300 rounded shadow max-h-60 overflow-y-auto"
+    >
+      <li
+        *ngFor="let autor of autoresFiltrados"
+        (click)="selectAutor(autor)"
+        class="p-2 cursor-pointer hover:bg-gray-100"
+      >
+        {{ autor.primeiro_nome }} {{ autor.sobrenome }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Parágrafos -->
+  <div formArrayName="paragrafos" class="space-y-4">
+    <label class="block mb-1 text-sm text-gray-600">Parágrafos</label>
+
+    <div
+      *ngFor="let paragrafoCtrl of paragrafos.controls; let i = index"
+      [formGroupName]="i"
+      class="border border-gray-300 rounded p-4 relative space-y-3"
+    >
+      <!-- Posição do Parágrafo -->
+       <div>
+         <input
+            formControlName="posicao"
+            type="number"
+            placeholder="Posição do parágrafo (ex: 1)"
+            class="w-full p-2 border rounded"
+            [ngClass]="{'border-red-500': getParagraphControl(i, 'posicao')?.invalid && getParagraphControl(i, 'posicao')?.touched}"
+          >
+          <div *ngIf="getParagraphControl(i, 'posicao')?.invalid && getParagraphControl(i, 'posicao')?.touched" class="text-red-500 text-sm mt-1">
+              <p *ngIf="getParagraphControl(i, 'posicao')?.errors?.['required']">A posição é obrigatória.</p>
+              <p *ngIf="getParagraphControl(i, 'posicao')?.errors?.['min']">A posição deve ser no mínimo 1.</p>
+          </div>
+       </div>
+
+      <!-- Texto do Parágrafo -->
+      <div>
+         <textarea
+            formControlName="conteudo"
+            class="w-full border rounded p-2"
+            placeholder="Digite o parágrafo..."
+            rows="5"
+            [ngClass]="{'border-red-500': getParagraphControl(i, 'conteudo')?.invalid && getParagraphControl(i, 'conteudo')?.touched}"
+          >
+        </textarea>
+         <div *ngIf="getParagraphControl(i, 'conteudo')?.invalid && getParagraphControl(i, 'conteudo')?.touched" class="text-red-500 text-sm mt-1">
+            <p *ngIf="getParagraphControl(i, 'conteudo')?.errors?.['required']">O conteúdo do parágrafo é obrigatório.</p>
+            <p *ngIf="getParagraphControl(i, 'conteudo')?.errors?.['minlength']">O parágrafo deve ter no mínimo 25 caracteres.</p>
+        </div>
+      </div>
+
+      <!-- Imagem do Parágrafo -->
+      <div>
+        <input
+          type="file"
+          (change)="onParagraphFileChange($event, i)"
+          accept="image/*"
+        >
+      </div>
+
+      <!-- Posição da imagem -->
+      <label class="flex items-center gap-2 text-sm text-gray-700">
+        <input
+          type="checkbox"
+          formControlName="imagem_apos_paragrafo"
+          class="h-4 w-4 text-blue-600 border-gray-300 rounded"
+        >
+        Imagem antes do parágrafo
+      </label>
+
+      <!-- Botão excluir -->
+      <div class="flex justify-end">
+        <button
+          type="button"
+          (click)="removeParagraph(i)"
+          [disabled]="paragrafos.controls.length <= 1"
+          class="removerParagrafo bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+        >
+          Remover
+        </button>
+      </div>
+    </div>
+
+    <!-- Botão de adicionar -->
+    <button
+      type="button"
+      (click)="addParagraph()"
+      class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
+    >
+      + Adicionar Parágrafo
+    </button>
+  </div>
+
+  <div class="flex items-center justify-between pt-4">
+    <button type="submit"
+      class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded disabled:bg-gray-400"
+      [disabled]="form.invalid"
+    >
+      {{ isEditMode ? 'Salvar Alterações' : 'Postar' }}
+    </button>
+    <button 
+      *ngIf="isEditMode"
+      type="button" 
+      (click)="deletePublication()"
+      class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded"
+    >
+      Excluir Publicação
+    </button>
+  </div>
+</form>
+
+<!-- Modal de Confirmação -->
+<app-confirmModal
+  *ngIf="showConfirmationModal"
+  [message]="confirmationMessage"
+  (confirm)="confirmDeletion()"
+  (close)="closeModal()"
+></app-confirmModal>

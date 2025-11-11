@@ -1,0 +1,80 @@
+<header class="bg-white text-gray-900 shadow-md">
+  <div class="container mx-auto flex justify-between items-center py-6 px-8">
+    <h1 class="text-2xl font-bold text-gray-800">ECA</h1>
+
+    <button (click)="toggleMobileMenu()" class="md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <nav class="hidden md:flex items-center">
+      <ul class="flex items-center space-x-8">
+        <li>
+          <a
+            routerLink="/home"
+            class="text-gray-600 hover:underline hover:text-gray-900 transition-colors duration-300"
+          >
+            Home
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/articles"
+            class="text-gray-600 hover:underline hover:text-gray-900 transition-colors duration-300"
+          >
+            Artigos
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/lei-henry-borel"
+            class="text-gray-600 hover:underline hover:text-gray-900 transition-colors duration-300"
+          >
+            Lei Henry Borel
+          </a>
+        </li>
+        <li>
+          <button
+            (click)="toggleContactModal()"
+            class="bg-black text-white px-5 py-2 rounded hover:bg-gray-700 transition-colors duration-300"
+          >
+            Contate-nos
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <nav
+    [class.hidden]="!isMobileMenuOpen"
+    class="md:hidden hidden flex-col space-y-2 p-8 pt-0 transition-all duration-300 transform"
+  >
+    <a
+      routerLink="/home"
+      class="block text-gray-600 hover:underline hover:text-gray-900 transition-colors duration-300"
+    >
+      Home
+    </a>
+    <a
+      routerLink="/articles"
+      class="block text-gray-600 hover:underline hover:text-gray-900 transition-colors duration-300"
+    >
+      Artigos
+    </a>
+    <a
+      routerLink="/lei-henry-borel"
+      class="block text-gray-600 hover:underline hover:text-gray-900 transition-colors duration-300"
+    >
+      Lei Henry Borel
+    </a>
+    <button
+      (click)="toggleContactModal(); toggleMobileMenu()"
+      class="block bg-black text-white px-4 py-2 rounded hover:bg-gray-700"
+    >
+      Contate-nos
+    </button>
+  </nav>
+</header>
+
+<app-contactModal *ngIf="isContactModalOpen" (close)="toggleContactModal()"></app-contactModal>

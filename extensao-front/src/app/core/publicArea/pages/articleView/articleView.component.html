@@ -1,0 +1,59 @@
+<!-- Tela de Carregamento -->
+<div *ngIf="isLoading" class="flex justify-center items-center h-screen">
+  <p class="text-gray-500">Carregando artigo...</p>
+</div>
+
+<!-- Conteúdo do Artigo -->
+<div *ngIf="!isLoading && post" class="container mx-auto max-w-4xl px-4 py-16">
+  
+  <article class="prose lg:prose-xl max-w-none">
+    <!-- Cabeçalho do Artigo -->
+    <header class="mb-12 text-center border-b pb-8">
+      <h1 class="text-5xl font-extrabold text-gray-900 mb-4">{{ post.titulo }}</h1>
+      <p class="text-xl text-gray-600 leading-relaxed">{{ post.subtitulo }}</p>
+      <div class="mt-6 text-sm text-gray-500">
+        <span>Por {{ post.autor_nome }} {{ post.autor_sobrenome }}</span>
+        <span class="mx-2">&bullet;</span>
+        <span>Publicado em {{ formatDate(post.criado_em) }}</span>
+      </div>
+    </header>
+
+    <!-- Imagem de Capa -->
+    <figure class="mb-12">
+      <img [src]="post.capa_url" alt="Imagem de capa para o artigo '{{ post.titulo }}'" class="w-full h-auto rounded-lg shadow-lg">
+    </figure>
+
+    <!-- Corpo do Artigo com Parágrafos -->
+    <div class="space-y-8">
+      <ng-container *ngFor="let paragraph of post.paragrafos">
+        <!-- Imagem ANTES do parágrafo -->
+        <figure *ngIf="paragraph.imagem_url && !paragraph.imagem_apos_paragrafo" class="my-8">
+          <img [src]="paragraph.imagem_url" alt="Imagem relacionada ao parágrafo" class="w-full h-auto rounded-lg shadow-md">
+        </figure>
+
+        <!-- Conteúdo do parágrafo -->
+        <p class="text-lg leading-relaxed text-gray-700">
+          {{ paragraph.conteudo }}
+        </p>
+
+        <!-- Imagem DEPOIS do parágrafo -->
+        <figure *ngIf="paragraph.imagem_url && paragraph.imagem_apos_paragrafo" class="my-8">
+          <img [src]="paragraph.imagem_url" alt="Imagem relacionada ao parágrafo" class="w-full h-auto rounded-lg shadow-md">
+        </figure>
+      </ng-container>
+    </div>
+  </article>
+
+  <!-- Componente Reutilizável de Artigos Relacionados -->
+  <app-moreArticles [currentPostId]="post.id"></app-moreArticles>
+
+</div>
+
+<!-- Mensagem de Artigo Não Encontrado -->
+<div *ngIf="!isLoading && !post" class="text-center py-24">
+  <h2 class="text-2xl font-semibold text-gray-700">Artigo não encontrado</h2>
+  <p class="text-gray-500 mt-2">O artigo que você está procurando não existe ou foi removido.</p>
+  <a routerLink="/articles" class="mt-6 inline-block bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+    Voltar para todos os artigos
+  </a>
+</div>

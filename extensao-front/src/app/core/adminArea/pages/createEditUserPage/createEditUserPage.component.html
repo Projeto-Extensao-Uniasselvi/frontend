@@ -1,0 +1,278 @@
+<form
+  *ngIf="form"
+  [formGroup]="form"
+  (ngSubmit)="submitForm()"
+  class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto"
+>
+  <h2 class="text-2xl font-semibold mb-4">
+    {{ isEditMode ? 'Editar Usuário' : 'Criar Novo Usuário' }}
+  </h2>
+
+  <!-- MODO CRIAÇÃO -->
+  <ng-container *ngIf="!isEditMode">
+    <!-- Primeiro Nome -->
+    <div>
+      <label for="primeiro_nome" class="block mb-1 text-sm text-gray-600">Primeiro Nome <span class="text-red-500">*</span></label>
+      <input
+        formControlName="primeiro_nome"
+        id="primeiro_nome"
+        type="text"
+        placeholder="Primeiro nome do usuário"
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': getControl('primeiro_nome')?.invalid && getControl('primeiro_nome')?.touched}"
+      >
+      <div *ngIf="getControl('primeiro_nome')?.invalid && getControl('primeiro_nome')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="getControl('primeiro_nome')?.errors?.['required']">Primeiro nome é obrigatório.</p>
+        <p *ngIf="getControl('primeiro_nome')?.errors?.['minlength']">Deve ter no mínimo 2 caracteres.</p>
+        <p *ngIf="getControl('primeiro_nome')?.errors?.['maxlength']">Deve ter no máximo 50 caracteres.</p>
+        <p *ngIf="getControl('primeiro_nome')?.errors?.['pattern']">Deve conter apenas letras e espaços.</p>
+      </div>
+    </div>
+  
+    <!-- Sobrenome -->
+    <div>
+      <label for="sobrenome" class="block mb-1 text-sm text-gray-600">Sobrenome <span class="text-red-500">*</span></label>
+      <input
+        formControlName="sobrenome"
+        id="sobrenome"
+        type="text"
+        placeholder="Sobrenome do usuário"
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': getControl('sobrenome')?.invalid && getControl('sobrenome')?.touched}"
+      >
+      <div *ngIf="getControl('sobrenome')?.invalid && getControl('sobrenome')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="getControl('sobrenome')?.errors?.['required']">Sobrenome é obrigatório.</p>
+        <p *ngIf="getControl('sobrenome')?.errors?.['minlength']">Deve ter no mínimo 2 caracteres.</p>
+        <p *ngIf="getControl('sobrenome')?.errors?.['maxlength']">Deve ter no máximo 50 caracteres.</p>
+        <p *ngIf="getControl('sobrenome')?.errors?.['pattern']">Deve conter apenas letras e espaços.</p>
+      </div>
+    </div>
+  
+    <!-- Email -->
+    <div>
+      <label for="email" class="block mb-1 text-sm text-gray-600">Email <span class="text-red-500">*</span></label>
+      <input
+        formControlName="email"
+        id="email"
+        type="email"
+        placeholder="email@exemplo.com"
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': getControl('email')?.invalid && getControl('email')?.touched}"
+      >
+      <div *ngIf="getControl('email')?.invalid && getControl('email')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="getControl('email')?.errors?.['required']">Email é obrigatório.</p>
+        <p *ngIf="getControl('email')?.errors?.['email']">Formato de email inválido.</p>
+      </div>
+    </div>
+  
+    <!-- Confirmar Email -->
+    <div>
+      <label for="confirmar_email" class="block mb-1 text-sm text-gray-600">Confirmar Email <span class="text-red-500">*</span></label>
+      <input
+        formControlName="confirmar_email"
+        id="confirmar_email"
+        type="email"
+        placeholder="Confirme o email"
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': (getControl('confirmar_email')?.invalid || form.hasError('emailMismatch')) && getControl('confirmar_email')?.touched}"
+      >
+      <div *ngIf="getControl('confirmar_email')?.invalid && getControl('confirmar_email')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="getControl('confirmar_email')?.errors?.['required']">A confirmação do email é obrigatória.</p>
+        <p *ngIf="getControl('confirmar_email')?.errors?.['email']">Formato de email inválido.</p>
+      </div>
+      <div *ngIf="form.hasError('emailMismatch') && getControl('confirmar_email')?.touched" class="text-red-500 text-sm mt-1">
+        <p>Os emails não coincidem.</p>
+      </div>
+    </div>
+  
+    <!-- Senha -->
+    <div>
+      <label for="senha" class="block mb-1 text-sm text-gray-600">Senha <span class="text-red-500">*</span></label>
+      <input
+        formControlName="senha"
+        id="senha"
+        type="password"
+        placeholder="••••••••"
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': getControl('senha')?.invalid && getControl('senha')?.touched}"
+      >
+      <div *ngIf="getControl('senha')?.invalid && getControl('senha')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="getControl('senha')?.errors?.['required']">Senha é obrigatória.</p>
+        <p *ngIf="getControl('senha')?.errors?.['minlength']">A senha deve ter no mínimo 8 caracteres.</p>
+        <p *ngIf="getControl('senha')?.errors?.['maxlength']">A senha deve ter no máximo 30 caracteres.</p>
+        <p *ngIf="getControl('senha')?.errors?.['pattern']">Deve conter maiúscula, minúscula, número e caractere especial.</p>
+      </div>
+    </div>
+  
+    <!-- Confirmar Senha -->
+    <div>
+      <label for="confirmar_senha" class="block mb-1 text-sm text-gray-600">Confirmar Senha <span class="text-red-500">*</span></label>
+      <input
+        formControlName="confirmar_senha"
+        id="confirmar_senha"
+        type="password"
+        placeholder="Confirme a senha"
+        class="w-full p-2 border rounded"
+        [ngClass]="{'border-red-500': (getControl('confirmar_senha')?.invalid || form.hasError('passwordMismatch')) && getControl('confirmar_senha')?.touched}"
+      >
+      <div *ngIf="getControl('confirmar_senha')?.invalid && getControl('confirmar_senha')?.touched" class="text-red-500 text-sm mt-1">
+        <p *ngIf="getControl('confirmar_senha')?.errors?.['required']">A confirmação da senha é obrigatória.</p>
+      </div>
+      <div *ngIf="form.hasError('passwordMismatch') && getControl('confirmar_senha')?.touched" class="text-red-500 text-sm mt-1">
+        <p>As senhas não coincidem.</p>
+      </div>
+    </div>
+
+      <!-- Administrador -->
+    <div class="flex items-center">
+      <input
+        formControlName="administrador"
+        id="administrador_create"
+        type="checkbox"
+        class="h-4 w-4 text-purple-600 border-gray-300 rounded"
+      >
+      <label for="administrador_create" class="ml-2 text-sm text-gray-700">Conceder privilégios de Administrador</label>
+    </div>
+  </ng-container>
+
+  <!-- MODO EDIÇÃO -->
+  <ng-container *ngIf="isEditMode">
+    <!-- Seção de Perfil -->
+    <div formGroupName="profile" class="space-y-4">
+      <!-- Primeiro Nome -->
+      <div>
+        <label for="primeiro_nome_edit" class="block mb-1 text-sm text-gray-600">Primeiro Nome <span class="text-red-500">*</span></label>
+        <input
+          formControlName="primeiro_nome"
+          id="primeiro_nome_edit"
+          type="text"
+          placeholder="Primeiro nome do usuário"
+          class="w-full p-2 border rounded"
+          [ngClass]="{'border-red-500': getProfileControl('primeiro_nome')?.invalid && getProfileControl('primeiro_nome')?.touched}"
+        >
+        <div *ngIf="getProfileControl('primeiro_nome')?.invalid && getProfileControl('primeiro_nome')?.touched" class="text-red-500 text-sm mt-1">
+          <p *ngIf="getProfileControl('primeiro_nome')?.errors?.['required']">Primeiro nome é obrigatório.</p>
+        </div>
+      </div>
+      <!-- Sobrenome -->
+      <div>
+        <label for="sobrenome_edit" class="block mb-1 text-sm text-gray-600">Sobrenome <span class="text-red-500">*</span></label>
+        <input
+          formControlName="sobrenome"
+          id="sobrenome_edit"
+          type="text"
+          placeholder="Sobrenome do usuário"
+          class="w-full p-2 border rounded"
+          [ngClass]="{'border-red-500': getProfileControl('sobrenome')?.invalid && getProfileControl('sobrenome')?.touched}"
+        >
+        <div *ngIf="getProfileControl('sobrenome')?.invalid && getProfileControl('sobrenome')?.touched" class="text-red-500 text-sm mt-1">
+          <p *ngIf="getProfileControl('sobrenome')?.errors?.['required']">Sobrenome é obrigatório.</p>
+        </div>
+      </div>
+        <!-- Administrador -->
+      <div class="flex items-center">
+        <input
+          formControlName="administrador"
+          id="administrador_edit"
+          type="checkbox"
+          class="h-4 w-4 text-purple-600 border-gray-300 rounded"
+        >
+        <label for="administrador_edit" class="ml-2 text-sm text-gray-700">Conceder privilégios de Administrador</label>
+      </div>
+    </div>
+    <hr class="my-6">
+    <!-- Seção de Email -->
+    <div>
+      <label class="block mb-1 text-sm font-semibold text-gray-700">Email</label>
+      <div class="flex items-center space-x-4">
+        <input [value]="initialUserEmail" disabled class="w-full p-2 border rounded bg-gray-100 cursor-not-allowed">
+        <button type="button" (click)="startEmailEdit()" *ngIf="!isEditingEmail" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded text-sm">Editar</button>
+      </div>
+      
+      <div *ngIf="isEditingEmail" formGroupName="emailGroup" class="mt-4 space-y-4 p-4 border rounded-lg bg-gray-50">
+        <!-- Novo Email -->
+        <div>
+          <label for="novo_email" class="block mb-1 text-sm text-gray-600">Novo Email <span class="text-red-500">*</span></label>
+          <input formControlName="novo_email" id="novo_email" type="email" placeholder="novo.email@exemplo.com" class="w-full p-2 border rounded" [ngClass]="{'border-red-500': getEmailGroupControl('novo_email')?.invalid && getEmailGroupControl('novo_email')?.touched}">
+          <div *ngIf="getEmailGroupControl('novo_email')?.invalid && getEmailGroupControl('novo_email')?.touched" class="text-red-500 text-sm mt-1">
+            <p *ngIf="getEmailGroupControl('novo_email')?.errors?.['required']">Novo email é obrigatório.</p>
+            <p *ngIf="getEmailGroupControl('novo_email')?.errors?.['email']">Formato de email inválido.</p>
+          </div>
+        </div>
+        <!-- Confirmar Novo Email -->
+        <div>
+          <label for="confirmar_novo_email" class="block mb-1 text-sm text-gray-600">Confirmar Novo Email <span class="text-red-500">*</span></label>
+          <input formControlName="confirmar_novo_email" id="confirmar_novo_email" type="email" placeholder="Confirme o novo email" class="w-full p-2 border rounded" [ngClass]="{'border-red-500': (getEmailGroupControl('confirmar_novo_email')?.invalid || form.get('emailGroup')?.hasError('emailMismatch')) && getEmailGroupControl('confirmar_novo_email')?.touched}">
+          <div *ngIf="getEmailGroupControl('confirmar_novo_email')?.invalid && getEmailGroupControl('confirmar_novo_email')?.touched" class="text-red-500 text-sm mt-1">
+            <p *ngIf="getEmailGroupControl('confirmar_novo_email')?.errors?.['required']">A confirmação é obrigatória.</p>
+          </div>
+          <div *ngIf="form.get('emailGroup')?.hasError('emailMismatch') && getEmailGroupControl('confirmar_novo_email')?.touched" class="text-red-500 text-sm mt-1">
+            <p>Os emails não coincidem.</p>
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <button type="button" (click)="cancelEmailEdit()" class="text-sm text-red-600 hover:underline">Cancelar Alteração de Email</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Seção de Senha -->
+    <ng-container *ngIf="isEditMode && canChangePassword">
+      <hr class="my-6">
+      <div>
+        <label class="block mb-1 text-sm font-semibold text-gray-700">Senha</label>
+        <div class="flex items-center space-x-4">
+          <input value="••••••••" disabled class="w-full p-2 border rounded bg-gray-100 cursor-not-allowed">
+          <button type="button" (click)="startPasswordEdit()" *ngIf="!isEditingPassword" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded text-sm">Alterar Senha</button>
+        </div>
+  
+        <div *ngIf="isEditingPassword" formGroupName="changePasswordGroup" class="mt-4 space-y-4 p-4 border rounded-lg bg-gray-50">
+          <!-- Senha Atual -->
+          <div>
+              <label for="senha_atual" class="block mb-1 text-sm text-gray-600">Senha Atual <span class="text-red-500">*</span></label>
+              <input formControlName="senha_atual" id="senha_atual" type="password" placeholder="Digite sua senha atual" class="w-full p-2 border rounded" [ngClass]="{'border-red-500': getPasswordGroupControl('senha_atual')?.invalid && getPasswordGroupControl('senha_atual')?.touched}">
+              <div *ngIf="getPasswordGroupControl('senha_atual')?.invalid && getPasswordGroupControl('senha_atual')?.touched" class="text-red-500 text-sm mt-1">
+                  <p *ngIf="getPasswordGroupControl('senha_atual')?.errors?.['required']">A senha atual é obrigatória.</p>
+              </div>
+          </div>
+          <!-- Nova Senha -->
+          <div>
+            <label for="nova_senha" class="block mb-1 text-sm text-gray-600">Nova Senha <span class="text-red-500">*</span></label>
+            <input formControlName="senha_nova" id="nova_senha" type="password" placeholder="••••••••" class="w-full p-2 border rounded" [ngClass]="{'border-red-500': getPasswordGroupControl('senha_nova')?.invalid && getPasswordGroupControl('senha_nova')?.touched}">
+            <div *ngIf="getPasswordGroupControl('senha_nova')?.invalid && getPasswordGroupControl('senha_nova')?.touched" class="text-red-500 text-sm mt-1">
+              <p *ngIf="getPasswordGroupControl('senha_nova')?.errors?.['required']">Nova senha é obrigatória.</p>
+              <p *ngIf="getPasswordGroupControl('senha_nova')?.errors?.['minlength']">A senha deve ter no mínimo 8 caracteres.</p>
+              <p *ngIf="getPasswordGroupControl('senha_nova')?.errors?.['maxlength']">A senha deve ter no máximo 30 caracteres.</p>
+              <p *ngIf="getPasswordGroupControl('senha_nova')?.errors?.['pattern']">Deve conter maiúscula, minúscula, número e caractere especial.</p>
+            </div>
+          </div>
+          <!-- Confirmar Nova Senha -->
+          <div>
+            <label for="confirmar_nova_senha" class="block mb-1 text-sm text-gray-600">Confirmar Nova Senha <span class="text-red-500">*</span></label>
+            <input formControlName="confirmar_senha_nova" id="confirmar_nova_senha" type="password" placeholder="Confirme a nova senha" class="w-full p-2 border rounded" [ngClass]="{'border-red-500': (getPasswordGroupControl('confirmar_senha_nova')?.invalid || form.get('changePasswordGroup')?.hasError('passwordMismatch')) && getPasswordGroupControl('confirmar_senha_nova')?.touched}">
+              <div *ngIf="getPasswordGroupControl('confirmar_senha_nova')?.invalid && getPasswordGroupControl('confirmar_senha_nova')?.touched" class="text-red-500 text-sm mt-1">
+              <p *ngIf="getPasswordGroupControl('confirmar_senha_nova')?.errors?.['required']">A confirmação da senha é obrigatória.</p>
+            </div>
+            <div *ngIf="form.get('changePasswordGroup')?.hasError('passwordMismatch') && getPasswordGroupControl('confirmar_senha_nova')?.touched" class="text-red-500 text-sm mt-1">
+              <p>As senhas não coincidem.</p>
+            </div>
+          </div>
+            <div class="flex justify-end">
+            <button type="button" (click)="cancelPasswordEdit()" class="text-sm text-red-600 hover:underline">Cancelar Alteração de Senha</button>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </ng-container>
+
+  <!-- Botões de Ação -->
+  <div class="flex items-center justify-start pt-4">
+    <button type="submit"
+      class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded disabled:bg-gray-400"
+      [disabled]="form.invalid"
+    >
+      {{ isEditMode ? 'Salvar Alterações' : 'Criar Usuário' }}
+    </button>
+  </div>
+</form>

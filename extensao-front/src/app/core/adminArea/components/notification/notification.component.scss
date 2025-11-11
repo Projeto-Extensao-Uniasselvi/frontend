@@ -1,0 +1,22 @@
+// Animação da barra de progresso que encolhe da largura total para zero
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+// Aplica a barra de progresso animada a cada item de notificação
+.notification-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.5); // Cor semitransparente para a barra
+
+  // Aplica a animação 'shrink' com duração de 5 segundos, de forma linear e mantendo o estado final
+  animation: shrink 5s linear forwards;
+}

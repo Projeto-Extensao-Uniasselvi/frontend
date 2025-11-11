@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novo Post</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="module" src="../scripts/guards/admin-guard.js"></script>
+</head>
+  <body class="flex bg-gray-100 min-h-screen">
+    <!-- Barra Lateral -->
+    <aside class="w-64 bg-white border-r border-gray-200 p-4 flex flex-col">
+      <h2 class="text-xl font-semibold mb-8">ECA para você</h2>
+      <nav class="flex-1">
+        <ul class="space-y-4 text-gray-700">
+          <li><a href="./painel.html" class="hover:text-blue-600">Home</a></li>
+          <li><a href="#" class="hover:text-blue-600">Usuários</a></li>
+        </ul>
+
+        <div class="mt-10">
+          <h3 class="text-sm text-gray-400 uppercase mb-2">Posts</h3>
+          <ul class="space-y-2 text-gray-700">
+            <li><a href="./criar-post.html" class="text-purple-600 font-medium">Novo Post</a></li>
+            <li><a href="#" class="text-purple-600 font-medium">Gerenciar Posts</a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+  <!-- Conteúdo Principal -->
+  <main class="flex-1 p-8">
+    <form id="postForm" class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 space-y-4">
+      <h2 class="text-2xl font-semibold mb-4">Adicionar nova postagem</h2>
+      
+      <!-- Título -->
+      <input id="titulo" type="text" placeholder="Título da postagem" 
+        class="w-full p-2 border border-gray-300 rounded">
+
+      <!-- Subtítulo -->
+      <input id="subtitulo" type="text" placeholder="Subtítulo da postagem" 
+        class="w-full p-2 border border-gray-300 rounded">
+
+      <!-- Imagem de capa -->
+      <div>
+        <label class="block mb-1 text-sm text-gray-600">Imagem de capa</label>
+        <input id="capa" type="file" accept="image/*" 
+          class="w-full p-2 border border-gray-300 rounded">
+      </div>
+
+      <!-- Autor -->
+      <div class="relative">
+        <label class="block mb-1 text-sm text-gray-600">Autor</label>
+        <input id="buscarAutor" type="text" placeholder="Digite para buscar autor..." 
+          class="w-full p-2 border border-gray-300 rounded">
+
+      <!-- Resultados da busca -->
+        <ul id="listaAutores" 
+          class="absolute z-10 bg-white border border-gray-300 rounded w-full mt-1 max-h-40 overflow-y-auto hidden">
+      <!-- Resultados vão ser adicionados aqui via JS -->
+        </ul>
+      </div>
+      <input type="hidden" id="autor_id"> <!-- aqui fica o id do autor selecionado -->
+
+      <!-- Campo de postagem -->
+      <!-- Parágrafos -->
+      <div id="paragrafosContainer" class="space-y-4">
+        <label class="block mb-1 text-sm text-gray-600">Parágrafos</label>
+
+        <!-- Inserir com js dinamicamente -->
+        <div class="paragrafo border border-gray-300 rounded p-4 relative">
+          <!-- Texto -->
+          <textarea class="texto w-full border border-gray-300 rounded p-2 mb-4" 
+            placeholder="Digite o parágrafo..."></textarea>
+
+          <!-- Imagem -->
+          <div class="mb-4">
+            <input type="file" accept="image/*" class="imagem">
+          </div>
+
+          <!-- Posição da imagem -->
+          <label class="flex items-center gap-2 text-sm text-gray-700">
+            <input type="checkbox" class="h-4 w-4 text-blue-600 border-gray-300 rounded">
+            Imagem antes do parágrafo
+          </label>
+
+          <!-- Botão excluir -->
+          <div class="flex justify-end">
+            <button type="button" 
+              class="removerParagrafo bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
+              onclick="removeParagraph(this)">
+              Remover
+            </button>
+          </div>
+        </div>
+
+      <!-- Botão de adicionar -->
+        <button type="button" id="addParagrafo"
+          class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded"
+          onclick="addParagraph()">
+          + Adicionar Parágrafo
+        </button>
+      </div>
+
+      <!-- Botão de Postar -->
+      <button type="submit" 
+        class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded">
+        Postar
+      </button>
+    </form>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="module" src="../scripts/services/criar-post.js"></script>
+</body>
+
+</html>

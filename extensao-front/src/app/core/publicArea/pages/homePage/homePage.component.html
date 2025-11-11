@@ -1,0 +1,66 @@
+<div class="container mx-auto px-8 py-16 space-y-24">
+
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div class="space-y-4">
+      <h2 class="text-5xl font-bold text-gray-800">Sobre Nosso Projeto</h2>
+      <p class="text-lg font-bold text-gray-600 leading-relaxed font-medium">
+        Seja bem-vindo! Este site é uma iniciativa do projeto de extensão do Centro Universitário Leonardo da Vinci - Uniasselvi,
+        dedicado a informar sobre conselho tutelar e fortalecer a rede de proteção à infância e adolescência.
+      </p>
+      <p class="text-lg font-bold text-gray-600 leading-relaxed font-medium">
+        Nosso principal objetivo é ser uma ponte entre a comunidade
+        e o conhecimento sobre o Estatuto da Criança e do Adolescente (ECA)
+        e o papel vital do Conselho Tutelar.
+        Acreditamos que a informação clara e acessível é a ferramenta mais poderosa para garantir direitos.
+      </p>
+      <p class="text-lg font-bold text-gray-600 leading-relaxed font-medium">
+        Explore nossos artigos, guias e materiais para entender como o Conselho Tutelar funciona,
+        quando você deve acioná-lo e como todos nós podemos —e devemos— atuar na defesa
+        de um futuro mais seguro para nossas crianças e adolescentes.
+      </p>
+    </div>
+    <div class="flex justify-center items-center">
+      <img 
+        src="../../../../../assets/images/eca.png" 
+        alt="Logo do Estatuto da Criança e do Adolescente (ECA)" 
+        class="rounded-lg shadow-lg"
+      >
+    </div>
+  </section>
+
+  <section class="space-y-8">
+    <h2 class="text-3xl font-bold text-center text-gray-800">Artigos Recentes</h2>
+    <div *ngIf="isLoading" class="text-center text-gray-500 py-8">
+      <p>Carregando artigos...</p>
+    </div>
+    <div *ngIf="!isLoading && recentPosts.length === 0" class="text-center text-gray-500 py-8">
+        <p>Nenhum artigo recente encontrado.</p>
+    </div>
+    
+    <div *ngIf="!isLoading && recentPosts.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div 
+        *ngFor="let post of recentPosts" 
+        [routerLink]="['/articles', post.id]"
+        class="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300 cursor-pointer group"
+      >
+        <img 
+          [src]="post.capa_url || 'https://placehold.co/400x250/cccccc/ffffff?text=Artigo'" 
+          onerror="this.src='https://placehold.co/400x250/cccccc/ffffff?text=Artigo'"
+          alt="Imagem de capa do artigo {{ post.titulo }}" 
+          class="w-full h-48 object-cover"
+        >
+        <div class="p-6">
+          <h3 class="text-xl font-semibold text-gray-800 mb-2 truncate group-hover:text-purple-600 transition-colors">{{ post.titulo }}</h3>
+          <p class="text-sm text-gray-500 truncate">{{ post.subtitulo }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && recentPosts.length > 0" class="text-center pt-8">
+      <a routerLink="/articles" class="bg-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-700 transition-colors text-lg font-semibold shadow-md">
+        Ver mais artigos
+      </a>
+    </div>
+  </section>
+
+</div>

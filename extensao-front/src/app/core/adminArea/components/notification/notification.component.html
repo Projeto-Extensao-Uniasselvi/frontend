@@ -1,0 +1,19 @@
+<div class="fixed top-20 right-4 w-full max-w-sm sm:max-w-md flex flex-col gap-3 z-50">
+  @for(notification of notifications; track notification.id){
+    <div
+      class="notification-item relative flex items-center justify-between p-3 rounded-lg overflow-hidden shadow-lg"
+      [ngClass]="{
+        'bg-green-500/60 backdrop-blur-sm border border-green-400/70 text-green-100': notification.isSuccess,
+        'bg-red-500/60 backdrop-blur-sm border border-red-400/70 text-red-100': !notification.isSuccess
+      }"
+    >
+      <span class="message text-sm font-medium">{{ notification.message }}</span>
+      <button
+        class="bg-transparent p-1 rounded-full hover:bg-black/20 transition-colors"
+        (click)="removeNotification(notification.id)"
+      >
+        <span class="text-lg"> x </span>
+      </button>
+    </div>
+  }
+</div>

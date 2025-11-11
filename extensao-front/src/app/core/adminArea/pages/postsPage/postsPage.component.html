@@ -1,0 +1,100 @@
+<div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+  <!-- Cabeçalho -->
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-semibold">
+      Gerenciar Publicações
+    </h2>
+    <button (click)="goToCreate()" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded">
+      Nova Publicação
+    </button>
+  </div>
+
+  <!-- Barra de Busca -->
+  <div class="mb-4">
+    <input
+      type="text"
+      placeholder="Buscar por título..."
+      [formControl]="searchControl"
+      (input)="onSearch($event)"
+      class="w-full p-2 border border-gray-300 rounded"
+    />
+  </div>
+
+  <!-- Indicador de Carregamento -->
+  <div *ngIf="isLoading" class="text-center p-4">
+    <p>Carregando...</p>
+  </div>
+
+  <!-- Tabela de Publicações -->
+  <div *ngIf="!isLoading && posts.length > 0" class="overflow-x-auto">
+    <table class="min-w-full bg-white">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="text-left py-2 px-4">Título</th>
+          <th class="text-left py-2 px-4">Autor</th>
+          <th class="text-left py-2 px-4">Criado em</th>
+          <th class="text-left py-2 px-4">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of posts" class="border-b hover:bg-gray-50">
+          <td class="py-2 px-4">{{ post.titulo }}</td>
+          <td class="py-2 px-4">{{ post.autor_nome }} {{ post.autor_sobrenome }}</td>
+          <td class="py-2 px-4">{{ post.criado_em | date:'dd/MM/yyyy' }}</td>
+          <td class="py-2 px-4 space-x-2">
+            <button (click)="goToEdit(post.id)" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm">
+              Editar
+            </button>
+            <button (click)="deletePost(post.id, post.titulo)" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">
+              Excluir
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mensagem de Nenhum Resultado -->
+  <div *ngIf="!isLoading && posts.length === 0" class="text-center p-4">
+    <p>Nenhuma publicação encontrada.</p>
+  </div>
+
+  <!-- Paginação -->
+  <div *ngIf="!isLoading && pagination && pagination.paginas > 1" class="flex justify-center items-center mt-4 space-x-2">
+    <!-- Botão Anterior -->
+    <button 
+      (click)="changePage(pagination.pagina_atual - 1)" 
+      [disabled]="pagination.pagina_atual === 1"
+      class="px-3 py-1 border rounded disabled:opacity-50"
+    >
+      &laquo;
+    </button>
+
+    <!-- Números das Páginas -->
+    <button 
+      *ngFor="let page of getPages()" 
+      (click)="changePage(page)" 
+      [ngClass]="{'bg-purple-600 text-white': page === pagination.pagina_atual, 'bg-white': page !== pagination.pagina_atual}"
+      class="px-3 py-1 border rounded"
+    >
+      {{ page }}
+    </button>
+
+    <!-- Botão Próximo -->
+    <button 
+      (click)="changePage(pagination.pagina_atual + 1)" 
+      [disabled]="pagination.pagina_atual === pagination.paginas"
+      class="px-3 py-1 border rounded disabled:opacity-50"
+    >
+      &raquo;
+    </button>
+  </div>
+</div>
+
+<!-- Modal de Confirmação -->
+<app-confirmModal
+  *ngIf="showConfirmationModal"
+  [message]="confirmationMessage"
+  (confirm)="confirmDeletion()"
+  (close)="closeModal()"
+></app-confirmModal>
