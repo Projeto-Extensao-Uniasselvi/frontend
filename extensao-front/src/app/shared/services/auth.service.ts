@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { AuthData } from '../interfaces/requests/authData';
 import { ApiResponse } from '../interfaces/apiResponse';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
-import { environment } from '../../../enviroments/environment.development';
+import { environment } from '../../../environments/environment.development';
 import { Router } from '@angular/router';
 import { User } from '../interfaces/entities/user';
 import { JwtPayload } from '../interfaces/jwtPayload';

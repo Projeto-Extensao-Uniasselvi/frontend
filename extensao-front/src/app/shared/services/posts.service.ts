@@ -6,7 +6,7 @@ import { Publication } from '../interfaces/entities/publication';
 import { CreatePublicationDTO } from '../interfaces/dto/publication/createPublication.dto';
 import { UpdatePublicationDTO } from '../interfaces/dto/publication/updatePublication.dto';
 import { ParagraphImg } from '../interfaces/paragraphImg';
-import { environment } from '../../../enviroments/environment.development';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'

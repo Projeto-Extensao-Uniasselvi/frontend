@@ -6,7 +6,7 @@ import { ApiResponse } from '../interfaces/apiResponse';
 import { CreateUserDTO } from '../interfaces/dto/user/createUser.dto';
 import { UpdateUserDTO } from '../interfaces/dto/user/updateUser.dto';
 import { ChangePasswordDTO } from '../interfaces/dto/user/changePassword.dto';
-import { environment } from '../../../enviroments/environment.development';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
