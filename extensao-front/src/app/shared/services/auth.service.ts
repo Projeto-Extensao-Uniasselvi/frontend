@@ -24,15 +24,13 @@ export class AuthService {
     this.currentUser$ = this.currentUserSubject.asObservable();
     this.loadInitialUser();
   }
-
-  // Carrega o usuário do localStorage ao iniciar o serviço
+  
   private loadInitialUser(): void {
     const token = this.getToken();
     if (token && !this.isTokenExpired(token)) {
       const user = this.decodeAndMapUser(token);
       this.currentUserSubject.next(user);
     } else {
-      // Se o token for inválido ou expirado, garante que o estado esteja limpo.
       if (this.getToken()) {
         this.logout();
       }
@@ -79,21 +77,6 @@ export class AuthService {
       this.currentUserValue?.administrador === 1;
   }
 
-  public requestPasswordReset(email: string): Observable<ApiResponse> {
-    return this._http.post<ApiResponse>(
-      `${this._baseUrl}/recuperar-senha/enviar-link`,
-      { email }
-    );
-  }
-  
-  public resetPassword(password: string, token: string): Observable<ApiResponse> {
-    localStorage.setItem('token', token);
-    return this._http.post<ApiResponse>(
-      `${this._baseUrl}/recuperar-senha/redefinir`,
-      { senha_nova: password }
-    );
-  }
-
   private getDecodedTokenPayload(token: string): JwtPayload | null {
     try {
       return JSON.parse(atob(token.split('.')[1]));
@@ -106,8 +89,7 @@ export class AuthService {
   private decodeAndMapUser(token: string): User | null {
     const payload = this.getDecodedTokenPayload(token);
     if (!payload) return null;
-
-    // Mapeia o payload para a sua interface de Usuário de forma segura
+    
     return {
       id: payload.id,
       email: payload.email,
@@ -123,10 +105,9 @@ export class AuthService {
     const payload = this.getDecodedTokenPayload(token);
     if (payload && payload.exp) {
       const expiry = payload.exp;
-      // O tempo de expiração do JWT é em segundos, o de Date.now() é em milissegundos.
       return (Math.floor(Date.now() / 1000)) >= expiry;
     }
-    return true; // Considera expirado se não houver payload ou 'exp'
+    return true;
   }
 
 }

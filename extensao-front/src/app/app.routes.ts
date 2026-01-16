@@ -15,20 +15,6 @@ export const routes: Routes = [
     ),
   },
   {
-    path: 'esqueci-minha-senha',
-    loadComponent: () =>
-    import('./core/adminArea/pages/forgotPasswordPage/forgotPasswordPage.component').then(
-      (c) => c.ForgotPasswordPageComponent
-    ),
-  },
-  {
-    path: 'recuperar-senha',
-    loadComponent: () =>
-    import('./core/adminArea/pages/resetPasswordPage/resetPasswordPage.component').then(
-      (c) => c.ResetPasswordPageComponent
-    ),
-  },
-  {
     path: 'admin',
     canActivate: [adminGuard],
     loadChildren: () =>

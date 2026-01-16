@@ -8,15 +8,8 @@ export const ADMIN_ROUTES: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'dashboard',
+        redirectTo: 'posts',
         pathMatch: 'full',
-      },
-      {
-        path: 'dashboard',
-        loadComponent: () =>
-          import('./pages/dashboardPage/dashboardPage.component').then(
-            (c) => c.DashboardPageComponent
-          ),
       },
       {
         path: 'users',

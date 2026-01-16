@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../shared/services/auth.service';
 import { AuthData } from '../../../../shared/interfaces/requests/authData';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,6 @@ import { NotificationService } from '../../../../shared/services/notification.se
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterLink
     ],
   templateUrl: './loginPage.component.html',
   styleUrls: ['./loginPage.component.scss']
